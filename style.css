@@ -1,0 +1,283 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Courier New', monospace;
+    background: #111;
+    color: #fff;
+    overflow: hidden;
+    touch-action: manipulation;
+    user-select: none;
+}
+
+#gameContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 10px;
+}
+
+#gameArea {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+    background: #222;
+    border: 2px solid #444;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+#leftPanel, #rightPanel {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-width: 140px;
+}
+
+#mainArea {
+    position: relative;
+}
+
+#gameCanvas {
+    border: 2px solid #fff;
+    background: #000;
+}
+
+#pauseOverlay, #gameOverOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+}
+
+#pauseOverlay h2, #gameOverOverlay h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+#holdArea, #nextArea {
+    border: 1px solid #666;
+    padding: 10px;
+    background: #333;
+    border-radius: 4px;
+}
+
+#holdArea h3, #nextArea h3 {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #aaa;
+}
+
+#holdCanvas, #nextCanvas {
+    border: 1px solid #555;
+    background: #000;
+}
+
+#scoreArea {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border: 1px solid #666;
+    padding: 10px;
+    background: #333;
+    border-radius: 4px;
+}
+
+.scoreItem {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #ccc;
+}
+
+.scoreItem span:first-child {
+    color: #999;
+}
+
+#b2bArea {
+    background: #440;
+    padding: 2px 4px;
+    border-radius: 2px;
+}
+
+#controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: 500px;
+}
+
+#controlsRow1, #controlsRow2 {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+#controls button {
+    padding: 15px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border: 2px solid #666;
+    background: #333;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    touch-action: manipulation;
+    flex: 1;
+    min-width: 60px;
+}
+
+#controls button:hover {
+    background: #444;
+}
+
+#controls button:active {
+    background: #555;
+    transform: translateY(1px);
+}
+
+#leftBtn, #rightBtn, #downBtn {
+    font-size: 20px;
+}
+
+#instructions {
+    text-align: center;
+    font-size: 12px;
+    color: #888;
+    margin-top: 10px;
+    line-height: 1.4;
+}
+
+/* モバイル対応 */
+@media (max-width: 768px) {
+    #gameContainer {
+        padding: 5px;
+    }
+    
+    #gameArea {
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px;
+    }
+    
+    #leftPanel, #rightPanel {
+        flex-direction: row;
+        min-width: auto;
+        justify-content: space-around;
+    }
+    
+    #gameCanvas {
+        width: 300px;
+        height: 400px;
+    }
+    
+    #holdCanvas, #nextCanvas {
+        width: 80px;
+        height: 64px;
+    }
+    
+    #nextCanvas {
+        height: 320px;
+    }
+    
+    #scoreArea {
+        flex: 1;
+    }
+    
+    #controls button {
+        padding: 12px;
+        font-size: 14px;
+    }
+    
+    #instructions {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    #gameCanvas {
+        width: 240px;
+        height: 320px;
+    }
+    
+    #holdCanvas, #nextCanvas {
+        width: 60px;
+        height: 48px;
+    }
+    
+    #nextCanvas {
+        height: 240px;
+    }
+    
+    #controls button {
+        padding: 10px;
+        font-size: 12px;
+        min-width: 50px;
+    }
+    
+    .scoreItem {
+        font-size: 10px;
+    }
+}
+
+
+/* ===== Overrides for viewport-fit and vertical sizing ===== */
+#gameContainer {
+  min-height: 100dvh;
+  max-height: 100dvh;
+  padding-block: 8px;
+}
+
+/* Keep 1:2 aspect for the main game canvas */
+#gameCanvas {
+  width: 240px !important;
+  height: 480px !important;
+}
+
+/* Tighten spacing on compact heights */
+#gameArea { gap: 12px; padding: 12px; }
+#controls { gap: 8px; }
+#controls button { padding: 12px 16px; }
+
+/* Height-based responsive scaling to keep everything on-screen */
+@media (max-height: 900px) {
+  #gameCanvas { width: 220px !important; height: 440px !important; }
+  #nextCanvas { height: 220px !important; }
+  #holdCanvas { width: 96px !important; height: 80px !important; }
+}
+
+@media (max-height: 800px) {
+  #gameCanvas { width: 200px !important; height: 400px !important; }
+  #nextCanvas { height: 200px !important; }
+  #holdCanvas { width: 90px !important; height: 72px !important; }
+  #gameArea { gap: 10px; padding: 10px; }
+}
+
+@media (max-height: 720px) {
+  #gameCanvas { width: 180px !important; height: 360px !important; }
+  #nextCanvas { height: 180px !important; }
+  #holdCanvas { width: 80px !important; height: 64px !important; }
+  #controls button { padding: 10px 12px; font-size: 14px; }
+}
+
+@media (max-height: 640px) {
+  #gameCanvas { width: 160px !important; height: 320px !important; }
+  #nextCanvas { height: 160px !important; }
+  #holdCanvas { width: 72px !important; height: 56px !important; }
+  #instructions { display: none; }
+  .scoreItem { font-size: 11px; }
+}
