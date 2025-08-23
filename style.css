@@ -154,6 +154,39 @@ body {
     font-size: 20px;
 }
 
+/* arrow buttons without text */
+.arrow-btn {
+    position: relative;
+}
+
+.arrow-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0;
+    height: 0;
+}
+
+.arrow-btn.left::before {
+    border-style: solid;
+    border-width: 0.5em 0.8em 0.5em 0;
+    border-color: transparent currentColor transparent transparent;
+}
+
+.arrow-btn.right::before {
+    border-style: solid;
+    border-width: 0.5em 0 0.5em 0.8em;
+    border-color: transparent transparent transparent currentColor;
+}
+
+.arrow-btn.down::before {
+    border-style: solid;
+    border-width: 0.8em 0.5em 0 0.5em;
+    border-color: currentColor transparent transparent transparent;
+}
+
 #instructions {
     text-align: center;
     font-size: 12px;
