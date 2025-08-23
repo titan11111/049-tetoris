@@ -188,12 +188,19 @@ function handleResize() {
         document.addEventListener('keyup', handleKeyUp);
 
         // モバイルボタン
-        document.getElementById('leftBtn').addEventListener('touchstart', () => simulateKey('ArrowLeft', true));
-        document.getElementById('leftBtn').addEventListener('touchend', () => simulateKey('ArrowLeft', false));
-        document.getElementById('rightBtn').addEventListener('touchstart', () => simulateKey('ArrowRight', true));
-        document.getElementById('rightBtn').addEventListener('touchend', () => simulateKey('ArrowRight', false));
-        document.getElementById('downBtn').addEventListener('touchstart', () => simulateKey('ArrowDown', true));
-        document.getElementById('downBtn').addEventListener('touchend', () => simulateKey('ArrowDown', false));
+        function bindButton(id, key) {
+            const btn = document.getElementById(id);
+            const start = e => { e.preventDefault(); simulateKey(key, true); };
+            const end = e => { e.preventDefault(); simulateKey(key, false); };
+            btn.addEventListener('touchstart', start, { passive: false });
+            btn.addEventListener('touchend', end);
+            btn.addEventListener('mousedown', start);
+            btn.addEventListener('mouseup', end);
+            btn.addEventListener('mouseleave', end);
+        }
+        bindButton('leftBtn', 'ArrowLeft');
+        bindButton('rightBtn', 'ArrowRight');
+        bindButton('downBtn', 'ArrowDown');
         document.getElementById('rotateBtn').addEventListener('click', () => rotatePiece(1));
         document.getElementById('holdBtn').addEventListener('click', holdCurrentPiece);
         document.getElementById('hardDropBtn').addEventListener('click', hardDrop);
