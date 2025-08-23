@@ -281,3 +281,40 @@ body {
   #instructions { display: none; }
   .scoreItem { font-size: 11px; }
 }
+
+/* Improved mobile controls for small screens */
+@media (max-width: 480px) {
+  /* Reserve space for fixed control panel */
+  #gameContainer { padding-bottom: 120px; }
+
+  /* Stick controls to the bottom for easier access */
+  #controls {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    max-width: none;
+    padding: 8px 12px calc(8px + env(safe-area-inset-bottom));
+    background: rgba(34,34,34,0.95);
+  }
+
+  #controlsRow1, #controlsRow2 { gap: 8px; }
+
+  /* Larger tap targets */
+  #controls button {
+    padding: 14px 0;
+    font-size: 16px;
+    min-width: 0;
+  }
+
+  /* Emphasize left/right movement */
+  #leftBtn, #rightBtn {
+    flex: 1.5;
+    font-size: 20px;
+  }
+
+  #downBtn, #rotateBtn {
+    flex: 1;
+    font-size: 18px;
+  }
+}
