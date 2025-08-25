@@ -198,14 +198,20 @@ function handleResize() {
             btn.addEventListener('mouseup', end);
             btn.addEventListener('mouseleave', end);
         }
+        function bindTap(id, handler) {
+            const btn = document.getElementById(id);
+            const tap = e => { e.preventDefault(); handler(); };
+            btn.addEventListener('touchstart', tap, { passive: false });
+            btn.addEventListener('click', tap);
+        }
         bindButton('leftBtn', 'ArrowLeft');
         bindButton('rightBtn', 'ArrowRight');
         bindButton('downBtn', 'ArrowDown');
-        document.getElementById('rotateBtn').addEventListener('click', () => rotatePiece(1));
-        document.getElementById('holdBtn').addEventListener('click', holdCurrentPiece);
-        document.getElementById('hardDropBtn').addEventListener('click', hardDrop);
-        document.getElementById('pauseBtn').addEventListener('click', togglePause);
-        document.getElementById('resetBtn').addEventListener('click', reset);
+        bindTap('rotateBtn', () => rotatePiece(1));
+        bindTap('holdBtn', holdCurrentPiece);
+        bindTap('hardDropBtn', hardDrop);
+        bindTap('pauseBtn', togglePause);
+        bindTap('resetBtn', reset);
 
         // マウスイベント防止
         document.addEventListener('contextmenu', e => e.preventDefault());
