@@ -249,6 +249,7 @@ window.addEventListener('orientationchange', handleResize);
 
         switch(e.key) {
             case 'ArrowLeft':
+                e.preventDefault();
                 if (!input.leftPressed) {
                     movePiece(-1);
                     input.leftPressed = true;
@@ -256,6 +257,7 @@ window.addEventListener('orientationchange', handleResize);
                 }
                 break;
             case 'ArrowRight':
+                e.preventDefault();
                 if (!input.rightPressed) {
                     movePiece(1);
                     input.rightPressed = true;
@@ -263,6 +265,7 @@ window.addEventListener('orientationchange', handleResize);
                 }
                 break;
             case 'ArrowDown':
+                e.preventDefault();
                 if (!input.downPressed) {
                     input.downPressed = true;
                     input.downTime = ARR_DELAY;
@@ -297,6 +300,9 @@ window.addEventListener('orientationchange', handleResize);
      * キーアップハンドラ
      */
     function handleKeyUp(e) {
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+            e.preventDefault();
+        }
         input.keys[e.key] = false;
 
         switch(e.key) {
