@@ -232,14 +232,14 @@ window.addEventListener('orientationchange', handleResize);
         if (key === 'ArrowLeft') {
             if (pressed && !input.leftPressed) {
                 movePiece(-1);
-                input.leftTime = DAS_DELAY;
+                input.leftTime = 0;
             }
             input.leftPressed = pressed;
             if (!pressed) input.leftTime = 0;
         } else if (key === 'ArrowRight') {
             if (pressed && !input.rightPressed) {
                 movePiece(1);
-                input.rightTime = DAS_DELAY;
+                input.rightTime = 0;
             }
             input.rightPressed = pressed;
             if (!pressed) input.rightTime = 0;
@@ -267,7 +267,7 @@ window.addEventListener('orientationchange', handleResize);
                 if (!input.leftPressed) {
                     movePiece(-1);
                     input.leftPressed = true;
-                    input.leftTime = DAS_DELAY;
+                    input.leftTime = 0;
                 }
                 break;
             case 'ArrowRight':
@@ -275,7 +275,7 @@ window.addEventListener('orientationchange', handleResize);
                 if (!input.rightPressed) {
                     movePiece(1);
                     input.rightPressed = true;
-                    input.rightTime = DAS_DELAY;
+                    input.rightTime = 0;
                 }
                 break;
             case 'ArrowDown':
