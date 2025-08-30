@@ -230,12 +230,23 @@ window.addEventListener('orientationchange', handleResize);
     function simulateKey(key, pressed) {
         input.keys[key] = pressed;
         if (key === 'ArrowLeft') {
+            if (pressed && !input.leftPressed) {
+                movePiece(-1);
+                input.leftTime = DAS_DELAY;
+            }
             input.leftPressed = pressed;
             if (!pressed) input.leftTime = 0;
         } else if (key === 'ArrowRight') {
+            if (pressed && !input.rightPressed) {
+                movePiece(1);
+                input.rightTime = DAS_DELAY;
+            }
             input.rightPressed = pressed;
             if (!pressed) input.rightTime = 0;
         } else if (key === 'ArrowDown') {
+            if (pressed && !input.downPressed) {
+                input.downTime = ARR_DELAY;
+            }
             input.downPressed = pressed;
             if (!pressed) input.downTime = 0;
         }
