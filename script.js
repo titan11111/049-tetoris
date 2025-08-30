@@ -44,6 +44,9 @@
         43, 28, 18, 11, 7, 4, 3, 2, 1, 1
     ];
 
+    // ボード上の玉の数による速度補正率
+    const BALL_SPEED_FACTOR = 0.05;
+
     // テトロミノ定義
     const TETROMINOS = {
         I: { color: '#00f0f0', matrix: [[1,1,1,1]] },
@@ -763,6 +766,17 @@ window.addEventListener('orientationchange', handleResize);
     }
 
     /**
+     * ボード上の玉の数を取得
+     */
+    function getBallCount() {
+        let filled = 0;
+        for (let i = 0; i < gameState.board.length; i++) {
+            if (gameState.board[i]) filled++;
+        }
+        return Math.floor(filled / 4);
+    }
+
+    /**
      * 色インデックス取得
      */
     function getColorIndex(pieceType) {
@@ -836,9 +850,11 @@ window.addEventListener('orientationchange', handleResize);
     function updateGravity(dt) {
         if (!gameState.currentPiece) return;
 
-        const dropSpeed = input.downPressed ? 
-            LEVEL_SPEEDS[Math.min(gameState.level - 1, LEVEL_SPEEDS.length - 1)] / SOFT_DROP_MULTIPLIER :
-            LEVEL_SPEEDS[Math.min(gameState.level - 1, LEVEL_SPEEDS.length - 1)];
+        const base = LEVEL_SPEEDS[Math.min(gameState.level - 1, LEVEL_SPEEDS.length - 1)];
+        const stageSpeed = base * Math.pow(0.95, gameState.level - 1);
+        const ballCount = getBallCount();
+        const adjusted = stageSpeed / (1 + ballCount * BALL_SPEED_FACTOR);
+        const dropSpeed = input.downPressed ? adjusted / SOFT_DROP_MULTIPLIER : adjusted;
 
         gameState.dropTimer += dt;
         
